@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Annotation Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+    <style>
+        /* Existing styles remain the same */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .toolbar button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #f0f0f0;
+            transition: background 0.3s;
+        }
+
+        .toolbar button.active {
+            background: #007bff;
+            color: white;
+        }
+
+        #pdf-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            min-height: 800px;
+            position: relative;
+            overflow: auto;
+        }
+
+        .highlight-area {
+            position: absolute;
+            background-color: rgba(255, 255, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .comment-marker {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #007bff;
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .comment-content {
+            position: absolute;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            max-width: 200px;
+            z-index: 101;
+            display: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .close-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        #comment-text {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Annotation Tool</h1>
+        
+        <div class="toolbar">
+            <input type="file" id="file-input" accept=".pdf" />
+            <button id="highlight-btn">Highlight</button>
+            <button id="comment-btn">Add Comment</button>
+            <button id="save-btn">Save Annotations</button>
+        </div>
+
+        <div id="pdf-container"></div>
+    </div>
+
+    <div id="comment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Add Comment</h3>
+            <textarea id="comment-text" placeholder="Enter your comment..."></textarea>
+            <button id="save-comment-btn">Save Comment</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
